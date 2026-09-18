@@ -1,42 +1,56 @@
-💳 Credit Card Fraud Detection
+# Credit Card Fraud Detection
 
-📌 Project Overview
+## 📌 Project Overview
 
-This project focuses on detecting fraudulent credit card transactions using Machine Learning. The goal is to classify transactions as Normal or Fraudulent and identify patterns that can help detect suspicious transactions.
+Credit card fraud detection is a classification problem where the goal is to identify fraudulent transactions from a large number of legitimate transactions.
 
-The project covers the complete Data Science workflow, including data understanding, data cleaning, exploratory data analysis, handling class imbalance, feature scaling, model building, and model evaluation.
+This project uses **Exploratory Data Analysis, SMOTE, Feature Scaling, and Logistic Regression** to detect potentially fraudulent credit card transactions.
 
----
+The project follows an end-to-end Machine Learning workflow, including data cleaning, class imbalance handling, model building, evaluation, and feature analysis.
 
-🎯 Objectives
+## 🎯 Objectives
 
-- Analyze credit card transaction data.
-- Identify fraudulent transactions.
-- Handle imbalanced transaction classes.
-- Apply feature scaling.
-- Build a Machine Learning classification model.
-- Evaluate model performance using multiple metrics.
-- Identify important features influencing fraud detection.
+- Analyze credit card transaction data
+- Identify fraudulent and legitimate transactions
+- Clean and prepare the dataset
+- Perform Exploratory Data Analysis (EDA)
+- Handle severe class imbalance using SMOTE
+- Scale numerical features using StandardScaler
+- Build a Logistic Regression classification model
+- Evaluate model performance using multiple metrics
+- Analyze model coefficients and feature importance
 
----
+## 📊 Dataset
 
-📂 Dataset
+The dataset contains **284,807 credit card transactions** with **31 columns**.
 
-The dataset contains credit card transaction information with features such as:
+It includes:
 
-- "Time"
-- "V1" to "V28"
-- "Amount"
-- "Class"
+- `Time` — Time elapsed between transactions
+- `V1` to `V28` — Anonymized numerical features
+- `Amount` — Transaction amount
+- `Class` — Target variable
 
-The "Class" column is the target variable:
+Target classes:
 
-- "0" → Normal Transaction
-- "1" → Fraudulent Transaction
+- `0` → Normal transaction
+- `1` → Fraudulent transaction
 
----
+### Class Distribution
 
-🛠️ Technologies Used
+Before data cleaning:
+
+- Normal transactions: **284,315**
+- Fraudulent transactions: **492**
+
+After removing duplicate records:
+
+- Normal transactions: **283,253**
+- Fraudulent transactions: **473**
+
+The dataset is highly imbalanced, with fraudulent transactions representing approximately **0.17%** of the cleaned dataset.
+
+## 🛠️ Technologies Used
 
 - Python
 - Pandas
@@ -47,154 +61,208 @@ The "Class" column is the target variable:
 - Imbalanced-learn
 - Jupyter Notebook
 
----
+## 🔄 Project Workflow
 
-🔍 Project Workflow
+1. Import Libraries
+2. Load Dataset
+3. Understand Dataset Structure
+4. Check Data Types
+5. Check Missing Values
+6. Check Duplicate Records
+7. Generate Statistical Summary
+8. Analyze Target Variable
+9. Remove Duplicate Records
+10. Exploratory Data Analysis
+11. Correlation Analysis
+12. Separate Features and Target
+13. Train-Test Split
+14. Handle Class Imbalance using SMOTE
+15. Feature Scaling using StandardScaler
+16. Build Logistic Regression Model
+17. Generate Predictions
+18. Evaluate Model
+19. Analyze Confusion Matrix
+20. Calculate ROC-AUC
+21. Analyze Feature Coefficients
 
-1. Data Understanding
-
-The dataset was explored to understand:
-
-- Dataset shape
-- Column names
-- Data types
-- Missing values
-- Duplicate records
-- Statistical summary
-- Target variable distribution
-
-2. Data Cleaning
+## 🧹 Data Cleaning
 
 The dataset was checked for:
 
 - Missing values
 - Duplicate records
-- Incorrect data types
+- Data types
 - Infinite values
+- Target class distribution
 
-Duplicate records were removed where required.
+### Cleaning Results
 
-3. Exploratory Data Analysis
+- Duplicate records identified: **1,081**
+- Missing values after cleaning: **0**
+- Infinite numerical values: **0**
+- Final dataset: **283,726 rows × 31 columns**
 
-EDA was performed to understand:
+## 📈 Exploratory Data Analysis
 
-- Normal vs fraudulent transactions
+EDA was performed to understand transaction patterns and differences between normal and fraudulent transactions.
+
+The analysis included:
+
+- Normal vs fraudulent transaction distribution
 - Transaction amount distribution
-- Transaction time distribution
-- Relationship between transaction amount and fraud
-- Feature correlations
+- Transaction amount comparison by class
+- Transaction time analysis
+- Correlation analysis
+- Correlation heatmap
 
-4. Handling Class Imbalance
+## ⚖️ Handling Class Imbalance
 
-Fraudulent transactions are much fewer than normal transactions. Therefore, SMOTE (Synthetic Minority Over-sampling Technique) was applied to the training data to balance the classes.
+The dataset contains significantly fewer fraudulent transactions than normal transactions.
 
-SMOTE was applied only to the training set to avoid data leakage.
+To address this imbalance, **SMOTE (Synthetic Minority Over-sampling Technique)** was applied only to the training data.
 
-5. Feature Scaling
+### Before SMOTE
 
-"StandardScaler" was used to standardize the numerical features before model training.
+- Normal: **226,602**
+- Fraud: **378**
 
-6. Machine Learning Model
+### After SMOTE
 
-A Logistic Regression model was trained to classify transactions into:
+- Normal: **226,602**
+- Fraud: **226,602**
 
-- Normal
-- Fraudulent
+This created a balanced training dataset while keeping the original test data unchanged.
 
-7. Model Evaluation
+## 📏 Feature Scaling
 
-The model was evaluated using:
+`StandardScaler` was used to scale the features before training the Logistic Regression model.
 
-- Accuracy
-- Precision
-- Recall
-- F1-Score
-- Confusion Matrix
-- ROC-AUC Score
+Training data after scaling:
 
-8. Feature Importance
+**453,204 × 30**
 
-Logistic Regression coefficients were analyzed to identify the features that had a stronger influence on fraud prediction.
+Testing data after scaling:
 
----
+**56,746 × 30**
 
-📊 Visualizations
+## 🤖 Machine Learning Model
 
-The project includes visualizations such as:
+### Logistic Regression
 
-- Normal vs Fraudulent Transaction Distribution
-- Transaction Amount Distribution
-- Transaction Amount by Class
-- Transaction Time Distribution
-- Correlation Heatmap
-- Class Distribution After SMOTE
-- Confusion Matrix
-- ROC Curve
-- Top 10 Important Features
+A **Logistic Regression** classification model was trained using the balanced and scaled training data.
 
----
+The model was then used to predict fraudulent and normal transactions in the test dataset.
 
-🤖 Machine Learning Model
+## 📊 Model Performance
 
-Logistic Regression
+The model was evaluated using Accuracy, Precision, Recall, F1-Score, and ROC-AUC.
 
-Logistic Regression was selected because this is a binary classification problem where the target variable contains two classes:
+| Metric | Score |
+|---|---:|
+| Accuracy | 99.12% |
+| Precision | 14.24% |
+| Recall | 85.26% |
+| F1-Score | 24.40% |
+| ROC-AUC | 0.963 |
 
-0 = Normal
-1 = Fraudulent
+Because the dataset is highly imbalanced, multiple evaluation metrics were considered instead of relying on accuracy alone.
 
-The model predicts the probability of a transaction belonging to the fraudulent class.
+## 🔲 Confusion Matrix
 
----
+The confusion matrix produced the following results:
 
-📈 Model Evaluation Metrics
+| | Predicted Normal | Predicted Fraud |
+|---|---:|---:|
+| Actual Normal | 56,163 | 488 |
+| Actual Fraud | 14 | 81 |
 
-The model performance was evaluated using:
+The model correctly identified **81 fraudulent transactions** and missed **14 fraudulent transactions** in the test set.
 
-Metric| Purpose
-Accuracy| Measures overall correct predictions
-Precision| Measures how many predicted fraud cases were actually fraudulent
-Recall| Measures how many actual fraud cases were detected
-F1-Score| Provides a balance between Precision and Recall
-ROC-AUC| Measures the model's ability to distinguish between the two classes
+## 📈 ROC Curve & AUC
 
-For fraud detection, Recall is especially important because missing an actual fraudulent transaction can be costly.
+The model achieved a **ROC-AUC score of 0.963**.
 
----
+The ROC curve was used to evaluate the model's ability to distinguish between normal and fraudulent transactions across different classification thresholds.
 
-💡 Key Learnings
+## ⭐ Feature Analysis
 
-Through this project, the following concepts were implemented:
+Logistic Regression coefficients were analyzed to understand the contribution of individual features to the classification model.
 
-- Data Cleaning
-- Exploratory Data Analysis
-- Data Visualization
-- Imbalanced Data Handling
-- SMOTE
-- Feature Scaling
-- Logistic Regression
-- Classification Metrics
-- Confusion Matrix
-- ROC-AUC Analysis
-- Feature Importance
+The analysis included:
 
----
+- Positive feature coefficients
+- Negative feature coefficients
+- Absolute coefficient values
+- Feature importance visualization
 
-🏁 Conclusion
+Some of the stronger coefficients in the notebook include features such as **V14, V17, V12, V10, V1, and V5**.
 
-The Credit Card Fraud Detection project demonstrates how Machine Learning can be applied to a real-world financial fraud detection problem.
+## 📸 Project Screenshots
 
-The complete workflow, from data preprocessing and exploratory analysis to model training and evaluation, was implemented using Python and popular Data Science libraries.
+### Fraud vs Normal Transactions
 
-The project also highlights the importance of handling imbalanced datasets correctly and using evaluation metrics such as Precision, Recall, F1-Score, and ROC-AUC instead of relying only on accuracy.
+![Fraud vs Normal Transactions](./fraud_vs_normal_transactions.png)
 
----
+### Transaction Amount Distribution
 
-👩‍💻 Author
+![Transaction Amount Distribution](./transaction_amount_distribution.png)
 
-Shabeena Bano
+### Transaction Amount by Class
 
-B.Tech CSE | Aspiring Data Scientist
+![Transaction Amount by Class](./transaction_amount_by_class.png)
 
----
-⭐ If you find this project useful, feel free to explore the repository and connect with me.
+### Correlation Heatmap
+
+![Correlation Heatmap](./correlation_heatmap.png)
+
+### Balanced Data After SMOTE
+
+![Balanced Data After SMOTE](./balanced_data_after_smote.png)
+
+### Confusion Matrix
+
+![Confusion Matrix](./confusion_matrix(1).png)
+
+### ROC Curve
+
+![ROC Curve](./roc_curve.png)
+
+### Feature Importance
+
+![Feature Importance](./feature_importance(1).png)
+
+## 💡 Key Takeaways
+
+- The dataset contains a very strong class imbalance.
+- Duplicate records were removed before modeling.
+- SMOTE was applied to the training data to balance the classes.
+- StandardScaler was used before Logistic Regression.
+- The model achieved **99.12% accuracy** and **85.26% recall** for fraudulent transactions.
+- The ROC-AUC score was **0.963**.
+- Confusion matrix analysis provided a detailed view of correctly and incorrectly classified transactions.
+
+## 🚀 Business Applications
+
+A fraud detection system can support businesses by:
+
+- Detecting potentially fraudulent transactions
+- Supporting transaction monitoring
+- Prioritizing suspicious transactions for review
+- Reducing potential financial losses
+- Supporting automated fraud-risk screening
+
+## 📝 Conclusion
+
+This project demonstrates an end-to-end Machine Learning approach for credit card fraud detection.
+
+The workflow covers data exploration, cleaning, class imbalance handling with SMOTE, feature scaling, Logistic Regression, model evaluation, confusion matrix analysis, ROC-AUC analysis, and feature coefficient analysis.
+
+The project demonstrates how Machine Learning techniques can be applied to highly imbalanced transaction data to identify potentially fraudulent transactions.
+
+## 👩‍💻 Author
+
+**Shabeena Bano**
+
+Aspiring Data Scientist | Python | SQL | Statistics | Machine Learning
+
+GitHub: [shabeenabano](https://github.com/shabeenabano)
